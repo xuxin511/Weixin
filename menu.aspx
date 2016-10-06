@@ -10,6 +10,8 @@
     <form id="form1" runat="server">
     <div>
         <asp:Button ID="Button1" runat="server" Text="创建菜单" OnClick="Button1_Click" />
+        <asp:Button ID="Button2" runat="server" Text="删除菜单" OnClick="Button2_Click" />
+        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="查询菜单" />
     </div>
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </form>
