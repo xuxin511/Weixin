@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <title>WeCahtJsSdk Demo</title>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="@Url.Content("~/scripts/jquery-1.8.2.min.js")"></script>
     <script>
         wx.config(@Html.Raw(ViewBag.config));
         wx.ready(function () {
@@ -18,18 +17,6 @@
                         $("#content").text(result);
                     }
                 });
-            });
-            wx.onMenuShareQQ({
-                title: '牛屎的分享到QQ接口', // 分享标题
-                desc: '牛屎就是牛屎，无需解译！', // 分享描述
-                link: 'http://www.baidu.com', // 分享链接
-                imgUrl: 'http://www.baidu.com/img/baidu_jgylogo3.gif', // 分享图标
-                success: function () {
-                    alert("分享成功！");
-                },
-                cancel: function () {
-                    alert("取消分享！！");
-                }
             });
         });
         wx.error(function (res) {
