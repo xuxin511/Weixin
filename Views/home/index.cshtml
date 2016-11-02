@@ -11,37 +11,34 @@
         wx.config(@Html.Raw(ViewBag.config));
         wx.ready(function () {
             alert("wxjs is ready!");
-            var result1 = 3;
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/home/GetWebservice",
-            //    data: "result=" + result1,
-            //    success: function (sesponseTest) {
-                  
-            //    }
-            //});
 
-           
-                         
+
+
                     //$("#btn_scan").click(function () {
                     wx.scanQRCode({
                     needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
                     scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
                     success: function (res) {
                         var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                        //$.ajax({
-                        //    type: "POST",
-                        //    url: "/home/GetWebservice",
-                        //    data: "result="+result,
-                        //    success: function (sesponseTest) {
-                        //        $("#content").text(sesponseTest);
-                        //    }
-                        //});
-                        @{
-                            string result1 = "3";
-                            VimiuWeiChart.Controllers.homeController cc = new VimiuWeiChart.Controllers.homeController();
-                            cc.GetWebservice(result1);
-                        }
+                           $.ajax({
+                type: "POST",
+                url: "/home/GetWebservice",
+                data: "result=" + result,
+                success: function (sesponseTest) {
+                    alert(sesponseTest);
+                    var jsonObject = JSON.parse(sesponseTest);
+                    for (var i = 0; i < jsonObject.length; i++) {
+                        alert(jsonObject[i]);
+                        var newDiv = document.createElement('div');
+                        var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h3 class=‘title’>"+jsonObject[i]+"</h3></div><div class='weui_cell_ft'></div></div>";
+                        newDiv.innerHTML = str;
+                        newDiv.setAttribute("Id", "div" + jsonObject[i]);
+                        $("#Listadress").append(newDiv);
+                    }
+                    location.reload()
+                }
+            });
+
 
                     }
                 });
@@ -60,20 +57,10 @@
 
     @*<input type="button" name="btn_scan" id="btn_scan" value="扫描二维码" />*@
     <div class="container">
-                    <div class="weui_cells_title">图文列表</div>
-                    <div class="weui_cells weui_cells_access">
+                    <div class="weui_cells_title">门店列表</div>
+                    <div class="weui_cells weui_cells_access" id="Listadress">
 
-               @foreach (string color in ViewBag.ListColors)
-               
-                   {
-                    <div class="weui_cell">
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <h3 class="title">@color</h3>
-                        </div>
-                        <div class="weui_cell_ft">
-                        </div>
-                    </div>
-                }
+              
      
                     
                     </div>
