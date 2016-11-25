@@ -27,53 +27,47 @@
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                 success: function (res) {
-                    var latitude = 116.812541; // 纬度，浮点数，范围为90 ~ -90 res.latitude;
-                    var longitude =33.979839;  // 经度，浮点数，范围为180 ~ -180。res.longitude;
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                     var speed = res.speed; // 速度，以米/每秒计
                     var accuracy = res.accuracy; // 位置精度
                     var latLng = new qq.maps.LatLng(latitude, longitude);
                     geocoder.getAddress(latLng);
-                }
-            });
-
-
-                    //$("#btn_scan").click(function () {
                     wx.scanQRCode({
-                    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-                    scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-                    success: function (res) {
-                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                           $.ajax({
-                type: "POST",
-                url: "/home/GetWebservice",
-                data: "result=" + result,
-                success: function (sesponseTest) {
-                    //alert(sesponseTest);
-                    var jsonObject = JSON.parse(sesponseTest);
-                    for (var i = 0; i < jsonObject.length; i++) {
-                        //alert(jsonObject[i]);
-                        var newDiv = document.createElement('div');
-                        var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h3 class=‘title’>"+jsonObject[i]+"</h3></div><div class='weui_cell_ft'></div></div>";
-                        newDiv.innerHTML = str;
-                        newDiv.setAttribute("Id", "div" + jsonObject[i]);
-                        $("#Listadress").append(newDiv);
-                    }
+                        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                        scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                        success: function (res) {
+                            var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                            $.ajax({
+                                type: "POST",
+                                url: "/home/GetWebservice",
+                                data: "result=" + result,
+                                success: function (sesponseTest) {
+                                    //alert(sesponseTest);
+                                    var jsonObject = JSON.parse(sesponseTest);
+                                    for (var i = 0; i < jsonObject.length; i++) {
+                                        //alert(jsonObject[i]);
+                                        var newDiv = document.createElement('div');
+                                        var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h3 class=‘title’>" + jsonObject[i] + "</h3></div><div class='weui_cell_ft'></div></div>";
+                                        newDiv.innerHTML = str;
+                                        newDiv.setAttribute("Id", "div" + jsonObject[i]);
+                                        $("#Listadress").append(newDiv);
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
             });
-
-
-                    }
-                });
-                //});
-
+         
         });
         wx.error(function (res) {
 
-            alert("接口验证失败，详细信息：\n"+JSON.stringify(res));
+            alert("接口验证失败，详细信息：\n" + JSON.stringify(res));
 
         });
 
-  
+
 
 
     </script>
@@ -83,7 +77,7 @@
 
     @*<input type="button" name="btn_scan" id="btn_scan" value="扫描二维码" />*@
     <div class="container">
-        <div class="weui_cells_title" ><center><h1>门店列表</h1></center></div>
+        <div class="weui_cells_title"><center><h1>门店列表</h1></center></div>
         <div class="weui_cells_title" id="Adress"></div>
         <div class="weui_cells weui_cells_access" id="Listadress"></div>
     </div>
