@@ -6,12 +6,36 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="https://res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css"></script>
     <script src="@Url.Content("~/scripts/jquery-1.8.2.min.js")"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
     <link href="~/Content/custom.css" rel="stylesheet" />
     <script>
+
+        var geocoder, map, marker = null;
+        geocoder = new qq.maps.Geocoder({
+            complete: function (result) {
+                var newDiv = document.createElement('div');
+                var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h3 class=‘title’>" + result.detail.address + "</h3></div><div class='weui_cell_ft'></div></div>";
+                newDiv.innerHTML = str;
+                $("#Adress").append(newDiv);
+            }
+        });
+
         wx.config(@Html.Raw(ViewBag.config));
         wx.ready(function () {
             //alert("wxjs is ready!");
-       
+
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+                    var latLng = new qq.maps.LatLng(latitude, longitude);
+                    geocoder.getAddress(latLng);
+                }
+            });
+
 
                     //$("#btn_scan").click(function () {
                     wx.scanQRCode({
@@ -48,6 +72,10 @@
             alert("接口验证失败，详细信息：\n"+JSON.stringify(res));
 
         });
+
+  
+
+
     </script>
 </head>
 <body>
@@ -55,9 +83,9 @@
 
     @*<input type="button" name="btn_scan" id="btn_scan" value="扫描二维码" />*@
     <div class="container">
-                    <div class="weui_cells_title" ><center><h1>门店列表</h1></center></div>
-                    <div class="weui_cells weui_cells_access" id="Listadress">
-                    </div>
+        <div class="weui_cells_title" ><center><h1>门店列表</h1></center></div>
+        <div class="weui_cells_title" id="Adress"></div>
+        <div class="weui_cells weui_cells_access" id="Listadress"></div>
     </div>
     <div id="content"></div>
 </body>
