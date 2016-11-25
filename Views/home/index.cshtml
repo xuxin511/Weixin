@@ -27,8 +27,8 @@
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                 success: function (res) {
-                    var latitude = 121.383418; // 纬度，浮点数，范围为90 ~ -90 res.latitude;
-                    var longitude = 31.283773;  // 经度，浮点数，范围为180 ~ -180。res.longitude;
+                    var latitude = 116.812541; // 纬度，浮点数，范围为90 ~ -90 res.latitude;
+                    var longitude =33.979839;  // 经度，浮点数，范围为180 ~ -180。res.longitude;
                     var speed = res.speed; // 速度，以米/每秒计
                     var accuracy = res.accuracy; // 位置精度
                     var latLng = new qq.maps.LatLng(latitude, longitude);
