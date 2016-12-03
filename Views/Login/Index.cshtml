@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "用户登陆";
+}
+<script>
+
+        var geocoder, map, marker = null;
+        geocoder = new qq.maps.Geocoder({
+            complete: function (result) {
+                var newDiv = document.createElement('div');
+                var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h3 class=‘title’>" + result.detail.address + "</h3></div><div class='weui_cell_ft'></div></div>";
+                newDiv.innerHTML = str;
+                $("#Adress").append(newDiv);
+            }
+        });
+
+
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                var latLng = new qq.maps.LatLng(latitude, longitude);
+                geocoder.getAddress(latLng);
+
+            }
+        });
+</script>
+<div class="login-box">
+    <center>
+        <div class="login-content ">
+            <div style="margin:30px"></div>
+            <div class="col-xs-12" style="margin-bottom:30px">
+                <img src="~/img/logo-kobold.png" class="img-responsive">
+            </div>
+            <div class="form">
+                @using (Html.BeginForm("Index", "home", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <input type="text" id="password" name="password" class="form-control" placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <div class="col-xs-12  ">
+                        <div class="weui_cells_title" id="Adress"></div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 ">
+                            <button type="submit" class="btn  btn-success"><span class="glyphicon glyphicon-off"></span> 登录</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </center>
+</div>
