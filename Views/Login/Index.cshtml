@@ -7,7 +7,7 @@
     geocoder = new qq.maps.Geocoder({
         complete: function (result) {
             var newDiv = document.createElement('div');
-            var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h3 class=‘title’>" + result.detail.address + "</h3></div><div class='weui_cell_ft'></div></div>";
+            var str = "<div class='weui_cell'> <div class='weui_cell_bd weui_cell_primary'><h4 class=‘title’>" + result.detail.address + "</h4></div><div class='weui_cell_ft'></div></div>";
             newDiv.innerHTML = str;
             $("#Adress").append(newDiv);
         }

@@ -22,7 +22,7 @@
        
 
         @*wx.config(@Html.Raw(ViewBag.config));*@
-        //wx.ready(function () {
+        wx.ready(function () {
             //alert("wxjs is ready!");
 
             wx.scanQRCode({
@@ -63,12 +63,12 @@
             //    }
             //});
          
-        //});
-        //wx.error(function (res) {
+        });
+        wx.error(function (res) {
 
-        //    alert("接口验证失败，详细信息：\n" + JSON.stringify(res));
+            alert("接口验证失败，详细信息：\n" + JSON.stringify(res));
 
-        //});
+        });
 
 
 
