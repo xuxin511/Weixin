@@ -1,12 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.Title = "追溯查询";
+}
+
+
+@*<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width initial-scale=1" />
-    <title>VIMIU食品追溯查询</title>
+    <title>VIMIU食品追溯查询</title>*@
  
     @*<script src="@Url.Content("~/scripts/jquery-1.8.2.min.js")"></script>*@
 
-    <link href="~/Content/custom.css" rel="stylesheet" />
+    @*<link href="~/Content/custom.css" rel="stylesheet" />*@
     <script>
 
         //var geocoder, map, marker = null;
@@ -21,7 +26,7 @@
 
        
 
-        @*wx.config(@Html.Raw(ViewBag.config));*@
+        wx.config(@Html.Raw(ViewBag.config));
         wx.ready(function () {
             //alert("wxjs is ready!");
 
@@ -74,8 +79,8 @@
 
 
     </script>
-</head>
-<body>
+@*</head>
+    <body>*@
 
 
     @*<input type="button" name="btn_scan" id="btn_scan" value="扫描二维码" />*@
@@ -85,5 +90,5 @@
         <div class="weui_cells weui_cells_access" id="Listadress"></div>
     </div>
     <div id="content"></div>
-</body>
-</html>
+@*</body>
+</html>*@
