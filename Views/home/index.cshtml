@@ -56,7 +56,15 @@
                     data: "result=" + result,
                     success: function (sesponseTest) {
                         //alert(sesponseTest);
+                        //obj = JSON.parse(text);
+                        //document.getElementById("demo").innerHTML =
+                        //    obj.mateno + " " + obj.matename + " " + obj.wechat2[0].SendTime + obj.wechat2[0].Shops[0]
+
+
                         var jsonObject = JSON.parse(sesponseTest);
+                        document.getElementById('name').innerHTML = jsonObject.matename;
+
+
                         for (var i = 0; i < jsonObject.length; i++) {
                             //alert(jsonObject[i]);
                             var newDiv = document.createElement('div');
@@ -84,7 +92,7 @@
     </div>
     <div class="col-xs-12 column">
         <center> <h1 style="color:red">门店列表</h1></center>
-        <h3>品名</h3>
+        <label id="name"></label>
       
     </div>
     <div class="col-xs-12 column">
